@@ -4,7 +4,8 @@
   <%= { 
     :results => {
       :total_hits => @results['total_hits'],
-      :pages => @pager.pages.last,
+      :first_page => @results['first_page'],
+      :last_page => @results['last_page'],
       :page_size => @results['page_size'],
       :records =>
         @results.records.collect do |result| 
