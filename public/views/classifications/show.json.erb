@@ -1,14 +1,20 @@
 <% if @results.blank? || @results['total_hits'] == 0 %>
-  <%= { :results => [] }.to_json.html_safe %>
+  <%= { :results => nil }.to_json.html_safe %>
 <% else %>
-  <%= { :results => 
-    @results.records.collect do |result| 
-      { 
-        :identifier => result.identifier, 
-        :display_string => result.display_string, 
-        :uri => result.uri,
-        :level => result.level
-      } 
-    end
+  <%= { 
+    :results => {
+      :total_hits => @results['total_hits'],
+      :pages => @pager.pages.last,
+      :page_size => @results['page_size'],
+      :records =>
+        @results.records.collect do |result| 
+          { 
+            :identifier => result.identifier, 
+            :display_string => result.display_string, 
+            :uri => result.uri,
+            :level => result.level
+          } 
+        end
+    }
   }.to_json.html_safe %>
 <% end %>
