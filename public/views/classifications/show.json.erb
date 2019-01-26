@@ -1,0 +1,14 @@
+<% if @results.blank? || @results['total_hits'] == 0 %>
+  <%= { :results => [] }.to_json.html_safe %>
+<% else %>
+  <%= { :results => 
+    @results.records.collect do |result| 
+      { 
+        :identifier => result.identifier, 
+        :display_string => result.display_string, 
+        :uri => result.uri,
+        :level => result.level
+      } 
+    end
+  }.to_json.html_safe %>
+<% end %>
